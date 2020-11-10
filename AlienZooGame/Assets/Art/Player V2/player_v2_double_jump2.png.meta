@@ -1,0 +1,322 @@
+fileFormatVersion: 2
+guid: 587b41dbb707a4c4fb7945cc54549f83
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -6356096170481825886
+    second: player_v2_double_jump2_0
+  - first:
+      213: -2761264874242109433
+    second: player_v2_double_jump2_1
+  - first:
+      213: 4042599527138517609
+    second: player_v2_double_jump2_2
+  - first:
+      213: -2233843067834994011
+    second: player_v2_double_jump2_3
+  - first:
+      213: -447583219357276672
+    second: player_v2_double_jump2_4
+  - first:
+      213: 7094220591766076791
+    second: player_v2_double_jump2_5
+  - first:
+      213: 8155463095050065746
+    second: player_v2_double_jump2_6
+  - first:
+      213: -5569469465819593326
+    second: player_v2_double_jump2_7
+  externalObjects: {}
+  serializedVersion: 11
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: -1
+    aniso: -1
+    mipBias: -100
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  platformSettings:
+  - serializedVersion: 3
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: iPhone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: player_v2_double_jump2_0
+      rect:
+        serializedVersion: 2
+        x: 582
+        y: 1771
+        width: 99
+        height: 121
+      alignment: 9
+      pivot: {x: 0.44656157, y: 0.4453458}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2a7c530853c9ac7a0800000000000000
+      internalID: -6356096170481825886
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: player_v2_double_jump2_1
+      rect:
+        serializedVersion: 2
+        x: 1759
+        y: 1769
+        width: 126
+        height: 137
+      alignment: 9
+      pivot: {x: 0.50000095, y: 0.40345842}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 70019080a340ea9d0800000000000000
+      internalID: -2761264874242109433
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: player_v2_double_jump2_2
+      rect:
+        serializedVersion: 2
+        x: 2963
+        y: 1771
+        width: 120
+        height: 129
+      alignment: 9
+      pivot: {x: 0.5440877, y: 0.40772432}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 962e040f9d23a1830800000000000000
+      internalID: 4042599527138517609
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: player_v2_double_jump2_3
+      rect:
+        serializedVersion: 2
+        x: 4170
+        y: 1769
+        width: 112
+        height: 137
+      alignment: 9
+      pivot: {x: 0.58513534, y: 0.39560047}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5a2f9b1b09bcff0e0800000000000000
+      internalID: -2233843067834994011
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: player_v2_double_jump2_4
+      rect:
+        serializedVersion: 2
+        x: 5366
+        y: 1766
+        width: 105
+        height: 128
+      alignment: 9
+      pivot: {x: 0.6448056, y: 0.46976376}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 006a8c2fe6dd9c9f0800000000000000
+      internalID: -447583219357276672
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: player_v2_double_jump2_5
+      rect:
+        serializedVersion: 2
+        x: 579
+        y: 561
+        width: 96
+        height: 141
+      alignment: 9
+      pivot: {x: 0.56750363, y: 0.44747645}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 77d7a7a9a0cb37260800000000000000
+      internalID: 7094220591766076791
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: player_v2_double_jump2_6
+      rect:
+        serializedVersion: 2
+        x: 1765
+        y: 573
+        width: 129
+        height: 129
+      alignment: 9
+      pivot: {x: 0.47308114, y: 0.4551349}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2575447b9760e2170800000000000000
+      internalID: 8155463095050065746
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: player_v2_double_jump2_7
+      rect:
+        serializedVersion: 2
+        x: 2984
+        y: 567
+        width: 91
+        height: 135
+      alignment: 9
+      pivot: {x: 0.42368057, y: 0.42283258}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2954076770545b2b0800000000000000
+      internalID: -5569469465819593326
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+  spritePackingTag: 
+  pSDRemoveMatte: 0
+  pSDShowRemoveMatteOption: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
