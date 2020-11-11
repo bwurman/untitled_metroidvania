@@ -6,30 +6,27 @@ using UnityEngine.InputSystem;
 
 public class InputPlayer : MonoBehaviour
 {
-    public const float h_acceleration = 0.75f;
-    public const float h_air_deceleration = 0.25f;
-    public const float h_ground_deceleration = 0.75f;
-    public const float h_max_speed = 12f;
-    private bool moving_horizontally = false;
-
-    public const float jump_force = 12.5f;
-    public const float double_jump_force = 9f;
-    public const float fall_multiplier = 2.75f;
-    public const float low_jump_multiplier = 2f;
-    public const float terminal_velocity = -40f;
-
-    public const int max_num_jumps = 2;
-    public int current_num_jumps = 2;
-    private bool jumping = false;
-    private bool jump_pressed = false;
     private Transform trans;
     private Rigidbody2D rb;
     private Animator anim;
-
-    private bool on_ground = true;
     private float checkGroundRadius;
     private Transform GroundChecker;
     private LayerMask groundLayer;
+
+    public const int max_num_jumps = 2;
+    public int current_num_jumps = 2;
+
+    public const int max_num_dashes = 1;
+    public int current_num_dashes = 1;
+    public int dash_direction = 1;
+    public float time_dash_pressed = 0;
+
+    private bool on_ground = true;
+    private bool moving_horizontally = false;
+    private bool jumping = false;
+    private bool jump_pressed = false;
+    private bool dashing = false;
+    
 
     // Start is called before the first frame update
     void Start()
@@ -49,33 +46,35 @@ public class InputPlayer : MonoBehaviour
         // TODO: figure out how to replicate & what causes bug that makes you move really fast in the air without being able to slow down until you land
 
         CheckIfGrounded();
+        DashBehavior();
         BetterHorizontalBehavior();
         BetterJumpBehavior();
     }
+
+
+    ////////////////////////////////////////////////////////////////////////////
+    ////////////////////////////// BASIC MOVEMENT //////////////////////////////
+    ////////////////////////////////////////////////////////////////////////////
 
     public void HorizontalBehavior(float x)
     {
         //Debug.Log("Pushing on joystick");
         if (Math.Abs(x) > 0.15)
         {
-            float old_velocity = rb.velocity.x;
             anim.SetBool("pushed_left_or_right", true);
             moving_horizontally = true;
             // If x != 0, move
-            if (Math.Abs(rb.velocity.x) < h_max_speed)
+            //Debug.Log("Current x velocity: " + rb.velocity.x + " vs max velocity: " + Constants.PLAYER_H_MAX_VELOCITY);
+            if (x > 0 && rb.velocity.x < Constants.PLAYER_H_MAX_VELOCITY)
             {
-                rb.velocity += new Vector2(x * h_acceleration, 0);
-            }
-
-            float new_velocity = rb.velocity.x;
-            if ((old_velocity < 0 && new_velocity > 0) || (old_velocity > 0 && new_velocity < 0))
-                anim.SetTrigger("swapped_direction");
-
-            // Face the correct direction
-            if (x < 0)
-                transform.localScale = new Vector3(1, 1, 1);
-            else if (x > 0)
+                rb.velocity += new Vector2(Constants.PLAYER_H_ACCEL, 0);
                 transform.localScale = new Vector3(-1, 1, 1);
+            }
+            else if (x < 0 && rb.velocity.x < Constants.PLAYER_H_MAX_VELOCITY)
+            {
+                rb.velocity -= new Vector2(Constants.PLAYER_H_ACCEL, 0);
+                transform.localScale = new Vector3(1, 1, 1);
+            }
 
         }
         else
@@ -88,28 +87,39 @@ public class InputPlayer : MonoBehaviour
 
     void BetterHorizontalBehavior()
     {
-        if (!moving_horizontally)
+        if (!dashing)
         {
-            //Debug.Log("Not pushing on joystick");
-            if (on_ground)
+            if (rb.velocity.x > Constants.PLAYER_H_MAX_VELOCITY)
             {
-                //Debug.Log("on ground; using ground deceleration");
-                if (rb.velocity.x > h_ground_deceleration)
-                    rb.velocity -= new Vector2(h_ground_deceleration, 0);
-                else if (rb.velocity.x < -h_ground_deceleration)
-                    rb.velocity += new Vector2(h_ground_deceleration, 0);
-                else
-                    rb.velocity = new Vector2(0, rb.velocity.y);
+                rb.velocity -= new Vector2(Constants.PLAYER_H_MAX_DECEL, 0);
             }
-            else
+            else if (rb.velocity.x < -Constants.PLAYER_H_MAX_VELOCITY)
             {
-                //Debug.Log("in air; using air deceleration");
-                if (rb.velocity.x > h_air_deceleration)
-                    rb.velocity -= new Vector2(h_air_deceleration, 0);
-                else if (rb.velocity.x < -h_air_deceleration)
-                    rb.velocity += new Vector2(h_air_deceleration, 0);
+                rb.velocity += new Vector2(Constants.PLAYER_H_MAX_DECEL, 0);
+            }
+            else if (!moving_horizontally)
+            {
+                //Debug.Log("Not pushing on joystick");
+                if (on_ground)
+                {
+                    //Debug.Log("on ground; using ground deceleration");
+                    if (rb.velocity.x > Constants.PLAYER_H_GROUND_DECEL)
+                        rb.velocity -= new Vector2(Constants.PLAYER_H_GROUND_DECEL, 0);
+                    else if (rb.velocity.x < -Constants.PLAYER_H_GROUND_DECEL)
+                        rb.velocity += new Vector2(Constants.PLAYER_H_GROUND_DECEL, 0);
+                    else
+                        rb.velocity = new Vector2(0, rb.velocity.y);
+                }
                 else
-                    rb.velocity = new Vector2(0, rb.velocity.y);
+                {
+                    //Debug.Log("in air; using air deceleration");
+                    if (rb.velocity.x > Constants.PLAYER_H_AIR_DECEL)
+                        rb.velocity -= new Vector2(Constants.PLAYER_H_AIR_DECEL, 0);
+                    else if (rb.velocity.x < -Constants.PLAYER_H_AIR_DECEL)
+                        rb.velocity += new Vector2(Constants.PLAYER_H_AIR_DECEL, 0);
+                    else
+                        rb.velocity = new Vector2(0, rb.velocity.y);
+                }
             }
         }
     }
@@ -142,18 +152,30 @@ public class InputPlayer : MonoBehaviour
     {
         if (rb.velocity.y < 0)
         {
-            rb.velocity += Vector2.up * Physics2D.gravity * (fall_multiplier - 1) * Time.deltaTime;
-            if (rb.velocity.y < terminal_velocity)
-                rb.velocity = new Vector2(rb.velocity.x, terminal_velocity);
+            rb.velocity += Vector2.up * Physics2D.gravity * (Constants.PLAYER_FALL_MULTIPLIER - 1) * Time.deltaTime;
+            if (rb.velocity.y < Constants.PLAYER_V_MAX_VELOCITY)
+                rb.velocity = new Vector2(rb.velocity.x, Constants.PLAYER_V_MAX_VELOCITY);
 
         }
         else if (rb.velocity.y > 0 && !jump_pressed)
         {
-            rb.velocity += Vector2.up * Physics2D.gravity * (low_jump_multiplier - 1) * Time.deltaTime;
+            rb.velocity += Vector2.up * Physics2D.gravity * (Constants.PLAYER_LOW_JUMP_MULTIPLIER - 1) * Time.deltaTime;
 
         }
     }
 
+    public void DashBehavior()
+    {
+        if (dashing)
+        {
+            rb.velocity = new Vector2(Constants.PLAYER_DASH_SPEED * dash_direction, 0);
+            //Debug.Log("Dashing");
+        }
+    }
+
+    ////////////////////////////////////////////////////////////////////////////
+    //////////////////////////// SURFACE DETECTION /////////////////////////////
+    ////////////////////////////////////////////////////////////////////////////
 
     public void CheckIfGrounded()
     {
@@ -166,30 +188,23 @@ public class InputPlayer : MonoBehaviour
             on_ground = true;
             if (!jumping)
                 current_num_jumps = max_num_jumps;
-            //Debug.Log("Jumps reset b/c on ground");
+            if (!dashing)
+                current_num_dashes = max_num_dashes;
+            //Debug.Log("Jumps reset b/c on ground and not jumping");
+            //Debug.Log("Dash reset b/c on ground and not dashing");
         }
         else
         {
             on_ground = false;
-            Debug.Log("Not on ground");
+            //Debug.Log("Not on ground");
         }
         anim.SetBool("on_ground", on_ground);
     }
 
-    public void StartJumpAnimReceiver()
-    {
-        //Debug.Log("Jump animation triggered");
-        if (current_num_jumps == 0)
-            rb.velocity = new Vector2(rb.velocity.x, double_jump_force);
-        else
-            rb.velocity = new Vector2(rb.velocity.x, jump_force);
-    }
 
-    public void FinishedJumpAnimReceiver()
-    {
-        jumping = false;
-        //Debug.Log("Jump animation finished");
-    }
+    ////////////////////////////////////////////////////////////////////////////
+    /////////////////////////////// INPUT ACTIONS //////////////////////////////
+    ////////////////////////////////////////////////////////////////////////////
 
     public void Move(InputAction.CallbackContext context)
     {
@@ -212,4 +227,44 @@ public class InputPlayer : MonoBehaviour
             jump_pressed = false;
         }
     }
+
+    public void Dash(InputAction.CallbackContext context)
+    {
+        if (context.started || context.performed)
+        {
+            //Debug.Log("Dash pressed");
+            if (current_num_dashes > 0)
+            {
+                dashing = true;
+                current_num_dashes--;
+                dash_direction = -(int)transform.localScale.x;
+                anim.SetTrigger("dash_pressed");
+                //Debug.Log("Dash initiated; animation trigger sent");
+                time_dash_pressed = Time.time;
+            }
+
+        }
+    }
+
+    ////////////////////////////////////////////////////////////////////////////
+    //////////////////////////// ANIMATION RECEIVERS ///////////////////////////
+    ////////////////////////////////////////////////////////////////////////////
+
+    public void StartJumpAnimReceiver()
+    {
+        //Debug.Log("Jump animation triggered");
+        if (current_num_jumps == 0)
+            rb.velocity = new Vector2(rb.velocity.x, Constants.PLAYER_DOUBLE_JUMP_VELOCITY);
+        else
+            rb.velocity = new Vector2(rb.velocity.x, Constants.PLAYER_JUMP_VELOCITY);
+    }
+
+    public void FinishedJumpAnimReceiver() { jumping = false; }
+    public void FinishedDashAnimReceiver()
+    {
+        dashing = false;
+        //    Debug.Log("Speed: " + rb.velocity.x);
+        //    Debug.Log("Time since dash was pressed: " + (Time.time - time_dash_pressed));
+    }
+
 }
