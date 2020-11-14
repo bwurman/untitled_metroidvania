@@ -36,6 +36,14 @@
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": ""
+                },
+                {
+                    "name": "DiskThrow",
+                    "type": "Button",
+                    "id": "49f28f3a-98e8-4bd0-a52b-7e47c8b68496",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
                 }
             ],
             "bindings": [
@@ -75,11 +83,22 @@
                 {
                     "name": "",
                     "id": "989354de-4499-404d-910a-e4f211e2a3ba",
-                    "path": "<Gamepad>/rightTrigger",
+                    "path": "<SwitchProControllerHID>/rightTrigger",
                     "interactions": "Press",
                     "processors": "",
                     "groups": "Gamepad",
                     "action": "Dash",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "72d8c533-e6d0-41a1-b7bf-47c2e9a8da53",
+                    "path": "<SwitchProControllerHID>/rightShoulder",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Gamepad",
+                    "action": "DiskThrow",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
